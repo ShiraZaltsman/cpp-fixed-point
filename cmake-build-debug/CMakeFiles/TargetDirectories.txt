@@ -1,0 +1,3 @@
+/home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/cmake-build-debug/CMakeFiles/cpp_fixed_point_ShiraZaltsman.dir
+/home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/cmake-build-debug/CMakeFiles/edit_cache.dir

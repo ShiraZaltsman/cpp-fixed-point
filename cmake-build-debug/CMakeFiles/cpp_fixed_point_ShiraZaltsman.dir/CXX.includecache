@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/Price.h
+iostream
+/home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/iostream
+
+/home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/main.cpp
+Price.h
+/home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/Price.h
+

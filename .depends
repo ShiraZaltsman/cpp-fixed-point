@@ -1,0 +1,2 @@
+Price.o: Price.cpp Price.h
+main.o: main.cpp
