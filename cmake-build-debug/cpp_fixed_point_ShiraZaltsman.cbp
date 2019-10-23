@@ -84,6 +84,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/Price.cpp">
+			<Option target="cpp_fixed_point_ShiraZaltsman"/>
+		</Unit>
+		<Unit filename="/home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/Price.h">
+			<Option target="cpp_fixed_point_ShiraZaltsman"/>
+		</Unit>
 		<Unit filename="/home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/main.cpp">
 			<Option target="cpp_fixed_point_ShiraZaltsman"/>
 		</Unit>

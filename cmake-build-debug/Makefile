@@ -123,6 +123,33 @@ cpp_fixed_point_ShiraZaltsman/fast:
 	$(MAKE) -f CMakeFiles/cpp_fixed_point_ShiraZaltsman.dir/build.make CMakeFiles/cpp_fixed_point_ShiraZaltsman.dir/build
 .PHONY : cpp_fixed_point_ShiraZaltsman/fast
 
+Price.o: Price.cpp.o
+
+.PHONY : Price.o
+
+# target to build an object file
+Price.cpp.o:
+	$(MAKE) -f CMakeFiles/cpp_fixed_point_ShiraZaltsman.dir/build.make CMakeFiles/cpp_fixed_point_ShiraZaltsman.dir/Price.cpp.o
+.PHONY : Price.cpp.o
+
+Price.i: Price.cpp.i
+
+.PHONY : Price.i
+
+# target to preprocess a source file
+Price.cpp.i:
+	$(MAKE) -f CMakeFiles/cpp_fixed_point_ShiraZaltsman.dir/build.make CMakeFiles/cpp_fixed_point_ShiraZaltsman.dir/Price.cpp.i
+.PHONY : Price.cpp.i
+
+Price.s: Price.cpp.s
+
+.PHONY : Price.s
+
+# target to generate assembly for a file
+Price.cpp.s:
+	$(MAKE) -f CMakeFiles/cpp_fixed_point_ShiraZaltsman.dir/build.make CMakeFiles/cpp_fixed_point_ShiraZaltsman.dir/Price.cpp.s
+.PHONY : Price.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -159,6 +186,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... cpp_fixed_point_ShiraZaltsman"
 	@echo "... edit_cache"
+	@echo "... Price.o"
+	@echo "... Price.i"
+	@echo "... Price.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/Price.cpp" "/home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/cmake-build-debug/CMakeFiles/cpp_fixed_point_ShiraZaltsman.dir/Price.cpp.o"
   "/home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/main.cpp" "/home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/cmake-build-debug/CMakeFiles/cpp_fixed_point_ShiraZaltsman.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

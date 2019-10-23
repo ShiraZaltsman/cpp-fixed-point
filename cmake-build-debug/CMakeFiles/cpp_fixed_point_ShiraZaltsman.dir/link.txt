@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/cpp_fixed_point_ShiraZaltsman.dir/main.cpp.o  -o cpp_fixed_point_ShiraZaltsman 
+/usr/bin/c++  -g   CMakeFiles/cpp_fixed_point_ShiraZaltsman.dir/main.cpp.o CMakeFiles/cpp_fixed_point_ShiraZaltsman.dir/Price.cpp.o  -o cpp_fixed_point_ShiraZaltsman 

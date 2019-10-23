@@ -1,82 +1,224 @@
-//
-// Created by shira on 10/10/19.
-//
+#ifndef CPP_FIXED_POINT_ELANAFELSI_FIXED_POINT_H
+#define CPP_FIXED_POINT_ELANAFELSI_FIXED_POINT_H
 
-#ifndef CPP_FIXED_POINT_SHIRAZALTSMAN_PRICE_H
-#define CPP_FIXED_POINT_SHIRAZALTSMAN_PRICE_H
+#include <iostream>
+#include <iomanip>
 
-#include "iostream"
+#include "my_math.h"
 
-class Price {
+
+template<unsigned int SIZE, typename T = int>
+class FixedPoint {
 public:
-    Price(int dollar = 0);
+    FixedPoint(T integer = 0, int fraction = 0.00);
 
-    Price(int dollar, int cent);
+    FixedPoint(const FixedPoint<SIZE, T> &other);
 
-    Price operator+(Price const &p_other);
+    FixedPoint &operator=(const FixedPoint<SIZE, T> &other);
 
-    Price operator-(Price const &p_other);
+    FixedPoint &operator=(const T integer);
 
-    Price operator*(Price const &p_other);
+    FixedPoint &operator+=(const FixedPoint<SIZE, T> &other);
 
-    Price operator/(Price const &p_other);
+    /*FixedPoint &operator-=(const FixedPoint<SIZE, T> &other);
+    FixedPoint &operator*=(const FixedPoint<SIZE, T> &other);
+    FixedPoint &operator/=(const FixedPoint<SIZE, T> &other);
+    FixedPoint &operator%=(const FixedPoint<SIZE, T> &other);*/
 
-    friend std::ostream &operator<<(std::ostream &os, const Price &dt);
+    FixedPoint &operator++();
 
-    int get_dollars() const;
+    /*FixedPoint& operator--();
 
-    int get_cents() const;
+    FixedPoint operator++(int);
+    FixedPoint operator--(int);
 
-    int get_price_in_cent() const;
+    FixedPoint& operator-();
+
+    double T2double();*/
+
+    unsigned char getPrecision();
+    friend std::ostream &operator<<(std::ostream &out, FixedPoint fixedPoint) {
+        if (fixedPoint.m_signed)
+            out << '-';
+        out << +fixedPoint.m_integer << "." << std::setfill('0') << std::setw(SIZE) << fixedPoint.m_fraction << "\n";
+        return out;
+    }
 
 private:
-    int m_price_in_cent;
+    T m_integer;
+public:
+    T getMInteger() const;
+
+    void setMInteger(T mInteger);
+
+    unsigned int getMFraction() const;
+
+    void setMFraction(unsigned int mFraction);
+
+    bool isMSigned() const;
+
+    void setMSigned(bool mSigned);
+
+private:
+    unsigned int m_fraction;
+    bool m_signed;
+
 };
 
-inline Price::Price(int dollar) {
-    m_price_in_cent = dollar * 100;
+template<unsigned int SIZE, typename T>
+FixedPoint<SIZE, T> operator+(const FixedPoint<SIZE, T> &first, const FixedPoint<SIZE, T> &other);
+
+template<unsigned int SIZE, typename T>
+FixedPoint<SIZE, T> operator-(const FixedPoint<SIZE, T> &first, const FixedPoint<SIZE, T> &other);
+
+template<unsigned int SIZE, typename T>
+FixedPoint<SIZE, T>::FixedPoint(T integer, int fraction) {
+    if (integer < 0) {
+        m_signed = true;
+        m_integer = integer * -1;
+    }
+    if (integer >= 0) {
+        if (fraction < 0 && integer > 0) {
+            throw "ERROR! bad input";
+        }
+        m_signed = false;
+        m_integer = integer;
+    }
+    if (fraction < 0) {
+        m_signed = true;
+        m_fraction = fraction * -1;
+    } else {
+        m_fraction = fraction;
+    }
+
 }
 
-inline Price::Price(int dollar, int cent) {
-    m_price_in_cent = dollar * 100 + cent;
+template<unsigned int SIZE, typename T>
+FixedPoint<SIZE, T> &FixedPoint<SIZE, T>::operator=(const FixedPoint<SIZE, T> &other) {
+    if (this != &other) {
+        m_integer = other.m_integer;
+        m_fraction = other.m_fraction;
+        m_signed = other.m_signed;
+    }
+    return *this;
 }
 
-inline int Price::get_dollars() const {
-    return (int) m_price_in_cent / 100;
-}
+template<unsigned int SIZE, typename T>
+FixedPoint<SIZE, T> &FixedPoint<SIZE, T>::operator=(const T integer) {
+    if (integer < 0) {
+        m_signed = true;
+        m_integer = integer * -1;
+    }
+    if (integer >= 0) {
+        m_signed = false;
+        m_integer = integer;
+    }
+    m_fraction = 0;
 
-inline int Price::get_cents() const {
-    return (int) m_price_in_cent % 100;
-}
-
-inline std::ostream &operator<<(std::ostream &os, const Price &price) {
-    os << price.get_dollars() << '.' << ((price.get_cents() < 0) ? (price.get_cents() * -1) : (price.get_cents()))
-       << std::endl;
-    return os;
-}
-
-inline Price Price::operator+(Price const &p_other) {
-    return Price(this->get_dollars() + p_other.get_dollars(), this->get_cents() + p_other.get_cents());
-}
-
-inline Price Price::operator-(Price const &p_other) {
-    return Price(this->get_dollars() - p_other.get_dollars(), this->get_cents() - p_other.get_cents());
-}
-
-inline Price Price::operator*(Price const &p_other) {
-
-    int tmp = this->m_price_in_cent * p_other.get_price_in_cent() / 100;
-    return Price(tmp / 100, tmp % 100);
-}
-
-inline Price Price::operator/(Price const &p_other) {
-    int tmp = (int) (((float) m_price_in_cent / (float) p_other.get_price_in_cent()) * 100);
-    return Price(tmp / 100, tmp % 100);
-}
-
-inline int Price::get_price_in_cent() const {
-    return m_price_in_cent;
 }
 
 
-#endif //CPP_FIXED_POINT_SHIRAZALTSMAN_PRICE_H
+template<unsigned int SIZE, typename T>
+FixedPoint<SIZE, T> &FixedPoint<SIZE, T>::operator+=(const FixedPoint<SIZE, T> &other)
+{
+    if(m_signed == other.m_signed)
+    {
+        if ((m_fraction + other.m_fraction) >= Power<SIZE>(10)) {
+            ++m_integer;
+        }
+        m_fraction = (other.m_fraction + m_fraction) % Power<SIZE>(10);
+        m_integer += other.m_integer;
+    }
+    else
+    {
+        if(m_signed){
+            if ((int)(this->m_fraction - other.getMFraction()) <= 0) {
+                ++m_integer;
+            }
+            m_integer = other.m_integer + m_integer;
+            m_fraction += other.m_fraction;
+        }
+        m_integer = other.m_integer - m_integer;
+        m_fraction += other.m_fraction;
+        if(m_integer < 0)
+        {
+            m_integer = m_integer * -1;
+            m_signed= true;
+        }
+        else
+        {
+            m_signed= false;
+        }
+    }
+}
+
+template<unsigned int SIZE, typename T>
+FixedPoint<SIZE, T> &FixedPoint<SIZE, T>::operator++() {
+    m_integer = m_integer + 1;
+    return *this;
+}
+
+template<unsigned int SIZE, typename T>
+inline FixedPoint<SIZE, T> operator+(const FixedPoint<SIZE, T> &first, const FixedPoint<SIZE, T> &other) {
+    FixedPoint<SIZE, T> tmp(first);
+    tmp+=other;
+    return tmp;
+}
+
+template<unsigned int SIZE, typename T>
+inline FixedPoint<SIZE, T>::FixedPoint(const FixedPoint<SIZE, T> &other) {
+    if (this != &other) {
+        m_integer = other.m_integer;
+        m_fraction = other.m_fraction;
+        m_signed = other.m_signed;
+    }
+}
+
+template<unsigned int SIZE, typename T>
+T FixedPoint<SIZE, T>::getMInteger() const {
+    return m_integer;
+}
+
+template<unsigned int SIZE, typename T>
+void FixedPoint<SIZE, T>::setMInteger(T mInteger) {
+    m_integer = mInteger;
+}
+
+template<unsigned int SIZE, typename T>
+unsigned int FixedPoint<SIZE, T>::getMFraction() const {
+    return m_fraction;
+}
+
+template<unsigned int SIZE, typename T>
+void FixedPoint<SIZE, T>::setMFraction(unsigned int mFraction) {
+    m_fraction = mFraction;
+}
+
+template<unsigned int SIZE, typename T>
+bool FixedPoint<SIZE, T>::isMSigned() const {
+    return m_signed;
+}
+
+template<unsigned int SIZE, typename T>
+void FixedPoint<SIZE, T>::setMSigned(bool mSigned) {
+    m_signed = mSigned;
+}
+
+template<unsigned int SIZE, typename T>
+inline unsigned char FixedPoint<SIZE, T>::getPrecision() {
+    return (unsigned char)SIZE;
+}
+
+template<unsigned int SIZE, typename T>
+inline FixedPoint<SIZE, T> operator-(const FixedPoint<SIZE, T> &first, const FixedPoint<SIZE, T> &other) {
+    FixedPoint<SIZE, T> tmp(first);
+
+    tmp.setMSigned(!tmp.isMSigned());
+    tmp+=other;
+    tmp.setMSigned (!tmp.isMSigned());
+
+    return tmp;
+}
+
+
+#endif //CPP_FIXED_POINT_ELANAFELSI_FIXED_POINT_H

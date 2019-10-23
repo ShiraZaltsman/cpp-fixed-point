@@ -3,4 +3,4 @@ project(cpp_fixed_point_ShiraZaltsman)
 
 set(CMAKE_CXX_STANDARD 98)
 
-add_executable(cpp_fixed_point_ShiraZaltsman main.cpp)
+add_executable(cpp_fixed_point_ShiraZaltsman main.cpp Price.cpp)

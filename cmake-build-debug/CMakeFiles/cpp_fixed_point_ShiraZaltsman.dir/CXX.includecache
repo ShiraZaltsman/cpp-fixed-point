@@ -8,9 +8,15 @@
 
 /home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/Price.h
 iostream
-/home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/iostream
+-
+iomanip
+-
+my_math.h
+/home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/my_math.h
 
 /home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/main.cpp
 Price.h
 /home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/Price.h
+
+/home/shira/Desktop/cpp-fixed-point-ShiraZaltsman/my_math.h
 
