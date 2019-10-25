@@ -5,6 +5,7 @@
 #ifndef CPP_FIXED_POINT_SHIRAZALTSMAN_MY_MATH_H
 #define CPP_FIXED_POINT_SHIRAZALTSMAN_MY_MATH_H
 
+//TODO: change to struct
 template <int n>
 inline int Power(const int x)
 {

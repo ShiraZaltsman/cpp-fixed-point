@@ -26,6 +26,7 @@ public:
     FixedPoint &operator%=(const FixedPoint<SIZE, T> &other);*/
 
     FixedPoint &operator++();
+    FixedPoint operator-();
 
     /*FixedPoint& operator--();
 
@@ -117,12 +118,13 @@ FixedPoint<SIZE, T> &FixedPoint<SIZE, T>::operator=(const T integer) {
 
 }
 
-
+//todo fix +=
 template<unsigned int SIZE, typename T>
 FixedPoint<SIZE, T> &FixedPoint<SIZE, T>::operator+=(const FixedPoint<SIZE, T> &other)
 {
     if(m_signed == other.m_signed)
     {
+        //todo if(a>max-b)
         if ((m_fraction + other.m_fraction) >= Power<SIZE>(10)) {
             ++m_integer;
         }
@@ -131,23 +133,31 @@ FixedPoint<SIZE, T> &FixedPoint<SIZE, T>::operator+=(const FixedPoint<SIZE, T> &
     }
     else
     {
-        if(m_signed){
-            if ((int)(this->m_fraction - other.getMFraction()) <= 0) {
-                ++m_integer;
-            }
-            m_integer = other.m_integer + m_integer;
-            m_fraction += other.m_fraction;
+        if(m_integer < other.m_integer){
+            m_signed= !m_signed;
         }
-        m_integer = other.m_integer - m_integer;
-        m_fraction += other.m_fraction;
+
+
+        m_integer = (other.m_integer - m_integer);
+        if(m_integer<0){
+            m_integer*=-1;
+        }
+
+            if ((int)(m_fraction - other.m_fraction) < 0 || (int)( other.m_fraction - this->m_fraction )<0) {
+                m_integer--;
+            }
+            int tmp_fraction = (other.m_fraction -m_fraction);
+            if(tmp_fraction<0)
+            {
+                m_fraction=tmp_fraction*-1;
+            }
+            else{
+                m_fraction=tmp_fraction;
+            }
+
         if(m_integer < 0)
         {
             m_integer = m_integer * -1;
-            m_signed= true;
-        }
-        else
-        {
-            m_signed= false;
         }
     }
 }
@@ -207,6 +217,13 @@ void FixedPoint<SIZE, T>::setMSigned(bool mSigned) {
 template<unsigned int SIZE, typename T>
 inline unsigned char FixedPoint<SIZE, T>::getPrecision() {
     return (unsigned char)SIZE;
+}
+
+template<unsigned int SIZE, typename T>
+FixedPoint<SIZE,T> FixedPoint<SIZE, T>::operator-() {
+    FixedPoint tmp(*this);
+    tmp.setMSigned(!tmp.isMSigned());
+    return tmp;
 }
 
 template<unsigned int SIZE, typename T>
